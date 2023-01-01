@@ -1,4 +1,4 @@
-package com.gosty.myotakulist.core.data.source.remote.response
+package com.gosty.myotakulist.core.data.source.remote.response.common
 
 import com.google.gson.annotations.SerializedName
 

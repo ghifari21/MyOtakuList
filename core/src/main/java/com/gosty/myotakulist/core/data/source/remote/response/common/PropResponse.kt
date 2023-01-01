@@ -1,13 +1,13 @@
-package com.gosty.myotakulist.core.data.source.remote.response.anime
+package com.gosty.myotakulist.core.data.source.remote.response.common
 
 import com.google.gson.annotations.SerializedName
 
-data class AnimePropResponse(
+data class PropResponse(
     @field:SerializedName("from")
-    val from: AnimeDateResponse,
+    val from: DateResponse,
 
     @field:SerializedName("to")
-    val to: AnimeDateResponse,
+    val to: DateResponse,
 
     @field:SerializedName("string")
     val string: String? = null

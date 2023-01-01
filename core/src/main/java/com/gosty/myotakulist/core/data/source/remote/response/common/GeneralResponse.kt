@@ -1,8 +1,8 @@
-package com.gosty.myotakulist.core.data.source.remote.response.anime
+package com.gosty.myotakulist.core.data.source.remote.response.common
 
 import com.google.gson.annotations.SerializedName
 
-data class AnimeGeneralResponse(
+data class GeneralResponse(
     @field:SerializedName("mal_id")
     val malId: Int,
 

@@ -1,6 +1,9 @@
 package com.gosty.myotakulist.core.data.source.remote.response.anime
 
 import com.google.gson.annotations.SerializedName
+import com.gosty.myotakulist.core.data.source.remote.response.common.GeneralResponse
+import com.gosty.myotakulist.core.data.source.remote.response.common.ImageResponse
+import com.gosty.myotakulist.core.data.source.remote.response.common.TitleResponse
 
 data class AnimeResponse(
     @field:SerializedName("mal_id")
@@ -10,7 +13,7 @@ data class AnimeResponse(
     val url: String,
 
     @field:SerializedName("images")
-    val images: AnimeImageResponse,
+    val images: ImageResponse,
 
     @field:SerializedName("trailer")
     val trailer: AnimeTrailerResponse,
@@ -19,7 +22,7 @@ data class AnimeResponse(
     val isApproved: Boolean,
 
     @field:SerializedName("titles")
-    val titles: List<AnimeTitleResponse>,
+    val titles: List<TitleResponse>,
 
     @field:SerializedName("title")
     val title: String,
@@ -91,23 +94,23 @@ data class AnimeResponse(
     val broadcast: AnimeBroadcastResponse,
 
     @field:SerializedName("producers")
-    val producers: List<AnimeGeneralResponse>,
+    val producers: List<GeneralResponse>,
 
     @field:SerializedName("licensors")
-    val licensors: List<AnimeGeneralResponse>,
+    val licensors: List<GeneralResponse>,
 
     @field:SerializedName("studios")
-    val studios: List<AnimeGeneralResponse>,
+    val studios: List<GeneralResponse>,
 
     @field:SerializedName("genres")
-    val genres: List<AnimeGeneralResponse>,
+    val genres: List<GeneralResponse>,
 
     @field:SerializedName("explicit_genres")
-    val explicitGenres: List<AnimeGeneralResponse>,
+    val explicitGenres: List<GeneralResponse>,
 
     @field:SerializedName("themes")
-    val themes: List<AnimeGeneralResponse>,
+    val themes: List<GeneralResponse>,
 
     @field:SerializedName("demographics")
-    val demographics: List<AnimeGeneralResponse>
+    val demographics: List<GeneralResponse>
 )

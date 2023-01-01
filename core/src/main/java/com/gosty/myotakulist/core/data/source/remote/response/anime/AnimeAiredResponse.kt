@@ -1,6 +1,7 @@
 package com.gosty.myotakulist.core.data.source.remote.response.anime
 
 import com.google.gson.annotations.SerializedName
+import com.gosty.myotakulist.core.data.source.remote.response.common.PropResponse
 
 data class AnimeAiredResponse(
     @field:SerializedName("from")
@@ -10,5 +11,5 @@ data class AnimeAiredResponse(
     val to: String? = null,
 
     @field:SerializedName("prop")
-    val prop: AnimePropResponse
+    val prop: PropResponse
 )
