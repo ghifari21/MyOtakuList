@@ -1,4 +1,4 @@
-package com.gosty.myotakulist.core.data.source
+package com.gosty.myotakulist.core.data
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : Resource<T>(data)
