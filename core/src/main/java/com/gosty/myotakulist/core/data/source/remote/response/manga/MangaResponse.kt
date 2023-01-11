@@ -30,6 +30,9 @@ data class MangaResponse(
     @field:SerializedName("title_japanese")
     val japaneseTitle: String? = null,
 
+    @field:SerializedName("title_synonyms")
+    val synonymsTitle: List<String>,
+
     @field:SerializedName("type")
     val type: String? = null,
 
@@ -40,7 +43,7 @@ data class MangaResponse(
     val volumes: Int? = null,
 
     @field:SerializedName("status")
-    val status: String,
+    val status: String? = null,
 
     @field:SerializedName("publishing")
     val isPublishing: Boolean,
