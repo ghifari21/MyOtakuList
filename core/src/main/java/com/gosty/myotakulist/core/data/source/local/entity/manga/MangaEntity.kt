@@ -58,8 +58,8 @@ data class MangaEntity(
     @ColumnInfo(name = "publishedTo")
     var publishedTo: String? = null,
 
-    @ColumnInfo(name = "publishedString")
-    var publishedString: String? = null,
+    @ColumnInfo(name = "publishedProp")
+    var publishedProp: String? = null,
 
     @ColumnInfo(name = "score")
     var score: Double? = null,
