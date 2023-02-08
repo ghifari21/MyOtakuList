@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="desc_cover_image">Cover Image</string>
+    <string name="desc_score_star">Score</string>
+    <string name="item_value">: %s</string>
+    <string name="rank_value">: #%s</string>
+    <string name="title_score">Score</string>
+    <string name="title_rank">Rank</string>
+    <string name="title_episode">Episode</string>
+    <string name="title_volume">Volume</string>
+    <string name="title_status">Status</string>
+    <string name="retry">Retry</string>
+    <string name="timeout">Timeout</string>
+</resources>

@@ -8,5 +8,17 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_top_anime"
+            android:icon="@drawable/ic_top_anime"
+            android:title="@string/menu_top_anime" />
+        <item
+            android:id="@+id/nav_now_playing_anime"
+            android:icon="@drawable/ic_seasons_anime"
+            android:title="@string/menu_now_playing_anime" />
+        <item
+            android:id="@+id/nav_top_manga"
+            android:icon="@drawable/ic_top_manga"
+            android:title="@string/menu_top_manga" />
     </group>
 </menu>
