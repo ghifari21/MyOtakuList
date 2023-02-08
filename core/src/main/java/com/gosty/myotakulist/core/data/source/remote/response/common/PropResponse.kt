@@ -7,8 +7,5 @@ data class PropResponse(
     val from: DateResponse,
 
     @field:SerializedName("to")
-    val to: DateResponse,
-
-    @field:SerializedName("string")
-    val string: String? = null
+    val to: DateResponse
 )

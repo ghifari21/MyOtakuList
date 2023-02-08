@@ -93,6 +93,9 @@ data class AnimeEntity(
     @ColumnInfo(name = "background")
     var background: String? = null,
 
+    @ColumnInfo(name = "season")
+    var season: String? = null,
+
     @ColumnInfo(name = "year")
     var year: Int? = null,
 
@@ -129,6 +132,6 @@ data class AnimeEntity(
     @ColumnInfo(name = "demographics")
     var demographics: List<GeneralEntity>,
 
-    @ColumnInfo(name = "isFavorite", defaultValue = "false")
+    @ColumnInfo(name = "isFavorite", defaultValue = "true")
     var isFavorite: Boolean
 )

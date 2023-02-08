@@ -2,11 +2,13 @@ package com.gosty.myotakulist.core.data.source.local.entity.manga
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.gosty.myotakulist.core.data.source.local.entity.common.GeneralEntity
 import com.gosty.myotakulist.core.data.source.local.entity.common.TitleEntity
 
 @Entity(tableName = "manga")
 data class MangaEntity(
+    @PrimaryKey
     @ColumnInfo(name = "malId")
     var malId: Int,
 
@@ -103,6 +105,6 @@ data class MangaEntity(
     @ColumnInfo(name = "demographics")
     var demographics: List<GeneralEntity>,
 
-    @ColumnInfo(name = "isFavorite", defaultValue = "false")
+    @ColumnInfo(name = "isFavorite", defaultValue = "true")
     var isFavorite: Boolean
 )

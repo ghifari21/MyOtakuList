@@ -33,6 +33,7 @@ data class Anime(
     val favorites: Int? = null,
     val synopsis: String? = null,
     val background: String? = null,
+    val season: String? = null,
     val year: Int? = null,
     val broadcast: AnimeBroadcast,
     val producers: List<GeneralModel>,
@@ -42,5 +43,5 @@ data class Anime(
     val explicitGenres: List<GeneralModel>,
     val themes: List<GeneralModel>,
     val demographics: List<GeneralModel>,
-    var isFavorite: Boolean
+    val isFavorite: Boolean = true
 ) : Parcelable

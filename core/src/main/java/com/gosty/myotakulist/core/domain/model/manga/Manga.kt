@@ -37,5 +37,5 @@ data class Manga(
     val explicitGenres: List<GeneralModel>,
     val themes: List<GeneralModel>,
     val demographics: List<GeneralModel>,
-    var isFavorite: Boolean
+    val isFavorite: Boolean = true
 ) : Parcelable

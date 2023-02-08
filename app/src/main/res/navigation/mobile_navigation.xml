@@ -9,5 +9,45 @@
         android:id="@+id/nav_home"
         android:name="com.gosty.myotakulist.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/home_to_setting"
+            app:destination="@id/nav_setting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_top_anime"
+        android:name="com.gosty.myotakulist.anime.top.TopAnimeFragment"
+        android:label="@string/menu_top_anime"
+        tools:layout="@layout/fragment_top_anime">
+        <action
+            android:id="@+id/top_anime_to_setting"
+            app:destination="@id/nav_setting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_now_playing_anime"
+        android:name="com.gosty.myotakulist.anime.season.SeasonAnimeFragment"
+        android:label="@string/menu_now_playing_anime"
+        tools:layout="@layout/fragment_season_anime">
+        <action
+            android:id="@+id/now_playing_anime_to_setting"
+            app:destination="@id/nav_setting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_top_manga"
+        android:name="com.gosty.myotakulist.manga.top.TopMangaFragment"
+        android:label="@string/menu_top_manga"
+        tools:layout="@layout/fragment_top_manga">
+        <action
+            android:id="@+id/top_manga_to_setting"
+            app:destination="@id/nav_setting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.gosty.myotakulist.setting.SettingFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

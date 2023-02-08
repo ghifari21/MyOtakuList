@@ -11,5 +11,8 @@ data class MangaPublishedResponse(
     val to: String? = null,
 
     @field:SerializedName("prop")
-    val prop: PropResponse
+    val prop: PropResponse,
+
+    @field:SerializedName("string")
+    val string: String? = null
 )
