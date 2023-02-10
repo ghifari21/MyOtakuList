@@ -47,4 +47,6 @@
     <string name="delete_anime_favorite">This anime has been deleted from your favorite!</string>
     <string name="add_manga_favorite">This manga has been added to your favorite!</string>
     <string name="delete_manga_favorite">This manga has been deleted from your favorite!</string>
+    <string name="empty_favorite_anime">You have no favorite anime.</string>
+    <string name="empty_favorite_manga">You have no favorite manga.</string>
 </resources>
