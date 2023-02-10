@@ -32,7 +32,7 @@ class TabsFragment : Fragment() {
     }
 
     private var _binding: FragmentTabsBinding? = null
-    private val binding  get() = _binding!!
+    private val binding  get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +40,7 @@ class TabsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTabsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,19 +61,19 @@ class TabsFragment : Fragment() {
 
             val tabName = arguments?.getString(ARG_TAB)
             val layoutManager = LinearLayoutManager(requireContext())
-            binding.rvFavorite.layoutManager = layoutManager
-            binding.rvFavorite.setHasFixedSize(true)
+            binding?.rvFavorite?.layoutManager = layoutManager
+            binding?.rvFavorite?.setHasFixedSize(true)
 
             if (tabName == TAB_ANIME) {
                 val animePagingAdapter = AnimePagingAdapter()
 
-                binding.rvFavorite.adapter = animePagingAdapter.withLoadStateFooter(
+                binding?.rvFavorite?.adapter = animePagingAdapter.withLoadStateFooter(
                     footer = LoadingStateAdapter {
                         animePagingAdapter.retry()
                     }
                 )
 
-                binding.btnRetry.setOnClickListener {
+                binding?.btnRetry?.setOnClickListener {
                     animePagingAdapter.refresh()
                 }
 
@@ -84,7 +84,7 @@ class TabsFragment : Fragment() {
                         it.refresh.apply {
                             when (this) {
                                 is LoadState.Loading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.VISIBLE
                                         tvLoading.visibility = View.VISIBLE
                                         rvFavorite.visibility = View.GONE
@@ -94,7 +94,7 @@ class TabsFragment : Fragment() {
                                 }
 
                                 is LoadState.NotLoading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.VISIBLE
@@ -104,7 +104,7 @@ class TabsFragment : Fragment() {
                                 }
 
                                 is LoadState.Error -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.GONE
@@ -135,13 +135,13 @@ class TabsFragment : Fragment() {
                 })
             } else {
                 val mangaPagingAdapter = MangaPagingAdapter()
-                binding.rvFavorite.adapter = mangaPagingAdapter.withLoadStateFooter(
+                binding?.rvFavorite?.adapter = mangaPagingAdapter.withLoadStateFooter(
                     footer = LoadingStateAdapter {
                         mangaPagingAdapter.retry()
                     }
                 )
 
-                binding.btnRetry.setOnClickListener {
+                binding?.btnRetry?.setOnClickListener {
                     mangaPagingAdapter.refresh()
                 }
 
@@ -152,7 +152,7 @@ class TabsFragment : Fragment() {
                         it.refresh.apply {
                             when (this) {
                                 is LoadState.Loading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.VISIBLE
                                         tvLoading.visibility = View.VISIBLE
                                         rvFavorite.visibility = View.GONE
@@ -162,7 +162,7 @@ class TabsFragment : Fragment() {
                                 }
 
                                 is LoadState.NotLoading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.VISIBLE
@@ -172,7 +172,7 @@ class TabsFragment : Fragment() {
                                 }
 
                                 is LoadState.Error -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.GONE

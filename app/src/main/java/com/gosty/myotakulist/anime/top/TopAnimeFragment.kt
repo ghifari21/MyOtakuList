@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TopAnimeFragment : Fragment() {
     private val topAnimeViewModel: TopAnimeViewModel by viewModels()
     private var _binding: FragmentTopAnimeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private val animePagingAdapter = AnimePagingAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class TopAnimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTopAnimeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,15 +44,15 @@ class TopAnimeFragment : Fragment() {
 
         if (activity != null) {
             val layoutManager = LinearLayoutManager(requireContext())
-            binding.rvTopAnime.layoutManager = layoutManager
-            binding.rvTopAnime.setHasFixedSize(true)
-            binding.rvTopAnime.adapter = animePagingAdapter.withLoadStateFooter(
+            binding?.rvTopAnime?.layoutManager = layoutManager
+            binding?.rvTopAnime?.setHasFixedSize(true)
+            binding?.rvTopAnime?.adapter = animePagingAdapter.withLoadStateFooter(
                 footer = LoadingStateAdapter {
                     animePagingAdapter.retry()
                 }
             )
 
-            binding.btnRetry.setOnClickListener {
+            binding?.btnRetry?.setOnClickListener {
                 animePagingAdapter.refresh()
             }
 
@@ -63,7 +63,7 @@ class TopAnimeFragment : Fragment() {
                     it.refresh.apply {
                         when (this) {
                             is LoadState.Loading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.VISIBLE
                                     tvLoading.visibility = View.VISIBLE
                                     rvTopAnime.visibility = View.GONE
@@ -73,7 +73,7 @@ class TopAnimeFragment : Fragment() {
                             }
 
                             is LoadState.NotLoading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvTopAnime.visibility = View.VISIBLE
@@ -83,7 +83,7 @@ class TopAnimeFragment : Fragment() {
                             }
 
                             is LoadState.Error -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvTopAnime.visibility = View.GONE
@@ -105,7 +105,8 @@ class TopAnimeFragment : Fragment() {
                 animePagingAdapter.submitData(lifecycle, it)
             }
 
-            animePagingAdapter.setOnItemClickCallback(object : AnimePagingAdapter.OnItemClickCallback {
+            animePagingAdapter.setOnItemClickCallback(object :
+                AnimePagingAdapter.OnItemClickCallback {
                 override fun onItemClicked(anime: Anime) {
                     val intent = Intent(activity, DetailAnimeActivity::class.java)
                     intent.putExtra(DetailAnimeActivity.EXTRA_DATA, anime)
@@ -127,7 +128,12 @@ class TopAnimeFragment : Fragment() {
                 true
             }
             R.id.action_favorite -> {
-                startActivity(Intent(requireContext(), Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")))
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")
+                    )
+                )
                 true
             }
             else -> false

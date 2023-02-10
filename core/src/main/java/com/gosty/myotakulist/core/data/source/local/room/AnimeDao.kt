@@ -3,7 +3,6 @@ package com.gosty.myotakulist.core.data.source.local.room
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.gosty.myotakulist.core.data.source.local.entity.anime.AnimeEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnimeDao {

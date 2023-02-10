@@ -12,7 +12,7 @@ import com.gosty.myotakulist.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
     private var _binding: FragmentSettingBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,8 +28,8 @@ class SettingFragment : Fragment() {
 
         if (activity != null) {
             val sharedPref = requireContext().getSharedPreferences(SETTING, Context.MODE_PRIVATE)
-            binding.swDarkMode.isChecked = sharedPref.getBoolean(THEME, false)
-            binding.swDarkMode.setOnCheckedChangeListener { view: CompoundButton, isChecked: Boolean ->
+            binding?.swDarkMode?.isChecked = sharedPref.getBoolean(THEME, false)
+            binding?.swDarkMode?.setOnCheckedChangeListener { view: CompoundButton, isChecked: Boolean ->
                 sharedPref.edit().putBoolean(THEME, isChecked).apply()
                 view.isChecked = isChecked
 

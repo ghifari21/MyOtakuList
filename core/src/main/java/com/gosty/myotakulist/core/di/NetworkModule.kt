@@ -16,12 +16,19 @@ import java.util.concurrent.TimeUnit
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
     @Provides
-    fun provideOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+    fun provideOkHttpClient(): OkHttpClient {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
+    }
 
     @Provides
     fun provideApiService(okHttpClient: OkHttpClient): ApiService {
