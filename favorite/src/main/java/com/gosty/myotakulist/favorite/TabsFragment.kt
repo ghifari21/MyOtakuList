@@ -34,6 +34,21 @@ class TabsFragment : Fragment() {
     private var _binding: FragmentTabsBinding? = null
     private val binding get() = _binding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFavoriteComponent
+            .builder()
+            .context(requireActivity().applicationContext)
+            .appDependencies(
+                EntryPointAccessors.fromApplication(
+                    requireActivity().applicationContext,
+                    FavoriteModuleDependencies::class.java
+                )
+            )
+            .build()
+            .inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,18 +62,6 @@ class TabsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            DaggerFavoriteComponent
-                .builder()
-                .context(requireContext())
-                .appDependencies(
-                    EntryPointAccessors.fromApplication(
-                        requireActivity().applicationContext,
-                        FavoriteModuleDependencies::class.java
-                    )
-                )
-                .build()
-                .inject(this)
-
             val tabName = arguments?.getString(ARG_TAB)
             val layoutManager = LinearLayoutManager(requireContext())
             binding?.rvFavorite?.layoutManager = layoutManager
