@@ -89,7 +89,3 @@ public *;
 -keep interface dagger.MembersInjector { *; }
 -keep class androidx.viewbinding.** { *; }
 -keep class kotlin.LazyKt { *; }
--keep class androidx.viewpager2.adapter.** { *; }
--keep class androidx.viewpager2.widget.ViewPager.** { *; }
--keep class * extends androidx.fragment.app.Fragment{}
--keepnames class androidx.navigation.fragment.NavHostFragment
