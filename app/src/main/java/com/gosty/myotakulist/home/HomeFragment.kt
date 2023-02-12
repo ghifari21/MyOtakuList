@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private val animePagingAdapter = AnimePagingAdapter()
     private val mangaPagingAdapter = MangaPagingAdapter()
 
@@ -40,9 +40,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,12 +50,13 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
             val layoutManager = LinearLayoutManager(requireContext())
-            binding.rvItemList.layoutManager = layoutManager
-            binding.rvItemList.setHasFixedSize(true)
+            binding?.rvItemList?.layoutManager = layoutManager
+            binding?.rvItemList?.setHasFixedSize(true)
 
             setData()
 
-            animePagingAdapter.setOnItemClickCallback(object : AnimePagingAdapter.OnItemClickCallback {
+            animePagingAdapter.setOnItemClickCallback(object :
+                AnimePagingAdapter.OnItemClickCallback {
                 override fun onItemClicked(anime: Anime) {
                     val intent = Intent(activity, DetailAnimeActivity::class.java)
                     intent.putExtra(DetailAnimeActivity.EXTRA_DATA, anime)
@@ -70,7 +71,7 @@ class HomeFragment : Fragment() {
                     it.refresh.apply {
                         when (this) {
                             is LoadState.Loading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.VISIBLE
                                     tvLoading.visibility = View.VISIBLE
                                     rvItemList.visibility = View.GONE
@@ -80,7 +81,7 @@ class HomeFragment : Fragment() {
                             }
 
                             is LoadState.NotLoading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvItemList.visibility = View.VISIBLE
@@ -97,7 +98,7 @@ class HomeFragment : Fragment() {
                             }
 
                             is LoadState.Error -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvItemList.visibility = View.GONE
@@ -115,7 +116,8 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-            mangaPagingAdapter.setOnItemClickCallback(object : MangaPagingAdapter.OnItemClickCallback {
+            mangaPagingAdapter.setOnItemClickCallback(object :
+                MangaPagingAdapter.OnItemClickCallback {
                 override fun onItemClicked(manga: Manga) {
                     val intent = Intent(activity, DetailMangaActivity::class.java)
                     intent.putExtra(DetailMangaActivity.EXTRA_DATA, manga)
@@ -130,7 +132,7 @@ class HomeFragment : Fragment() {
                     it.refresh.apply {
                         when (this) {
                             is LoadState.Loading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.VISIBLE
                                     tvLoading.visibility = View.VISIBLE
                                     rvItemList.visibility = View.GONE
@@ -140,7 +142,7 @@ class HomeFragment : Fragment() {
                             }
 
                             is LoadState.NotLoading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvItemList.visibility = View.VISIBLE
@@ -157,7 +159,7 @@ class HomeFragment : Fragment() {
                             }
 
                             is LoadState.Error -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvItemList.visibility = View.GONE
@@ -175,8 +177,8 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-            binding.btnRetry.setOnClickListener {
-                if (binding.swSearchFilter.isChecked) {
+            binding?.btnRetry?.setOnClickListener {
+                if (binding?.swSearchFilter?.isChecked == true) {
                     mangaPagingAdapter.refresh()
                 } else {
                     animePagingAdapter.refresh()
@@ -187,12 +189,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setData() {
-        binding.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding?.svSearch?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.tvWelcome.visibility = View.GONE
-                binding.swSearchFilter.isChecked
-                if (binding.swSearchFilter.isChecked) {
-                    binding.rvItemList.adapter = mangaPagingAdapter.withLoadStateFooter(
+                binding?.tvWelcome?.visibility = View.GONE
+                binding?.swSearchFilter?.isChecked
+                if (binding?.swSearchFilter?.isChecked == true) {
+                    binding?.rvItemList?.adapter = mangaPagingAdapter.withLoadStateFooter(
                         footer = LoadingStateAdapter {
                             mangaPagingAdapter.retry()
                         }
@@ -204,7 +206,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                 } else {
-                    binding.rvItemList.adapter = animePagingAdapter.withLoadStateFooter(
+                    binding?.rvItemList?.adapter = animePagingAdapter.withLoadStateFooter(
                         footer = LoadingStateAdapter {
                             animePagingAdapter.retry()
                         }
@@ -237,7 +239,12 @@ class HomeFragment : Fragment() {
                 true
             }
             R.id.action_favorite -> {
-                startActivity(Intent(requireContext(), Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")))
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")
+                    )
+                )
                 true
             }
             else -> false

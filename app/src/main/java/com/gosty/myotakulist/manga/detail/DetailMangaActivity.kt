@@ -3,6 +3,7 @@ package com.gosty.myotakulist.manga.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -24,7 +25,7 @@ class DetailMangaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.detail_anime)
+        supportActionBar?.title = getString(R.string.detail_manga)
 
         val manga = intent.getParcelableExtra<Manga>(EXTRA_DATA) as Manga
         setData(manga)
@@ -115,8 +116,18 @@ class DetailMangaActivity : AppCompatActivity() {
                 setIconFavorite(isFavorite)
                 if (isFavorite) {
                     detailMangaViewModel.insertFavoriteManga(manga)
+                    Toast.makeText(
+                        this@DetailMangaActivity,
+                        getString(R.string.add_manga_favorite),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     detailMangaViewModel.deleteFavoriteManga(manga.malId)
+                    Toast.makeText(
+                        this@DetailMangaActivity,
+                        getString(R.string.delete_manga_favorite),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
