@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.gosty.myotakulist.core.data.source.local.entity.manga.MangaEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MangaDao {

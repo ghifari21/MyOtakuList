@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TopMangaFragment : Fragment() {
     private val topMangaViewModel: TopMangaViewModel by viewModels()
     private var _binding: FragmentTopMangaBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private val mangaPagingAdapter = MangaPagingAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class TopMangaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTopMangaBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class TopMangaFragment : Fragment() {
 
         if (activity != null) {
             val layoutManager = LinearLayoutManager(requireContext())
-            binding.rvTopManga.apply {
+            binding?.rvTopManga?.apply {
                 this.layoutManager = layoutManager
                 setHasFixedSize(true)
                 adapter = mangaPagingAdapter.withLoadStateFooter(
@@ -54,7 +54,7 @@ class TopMangaFragment : Fragment() {
                 )
             }
 
-            binding.btnRetry.setOnClickListener {
+            binding?.btnRetry?.setOnClickListener {
                 mangaPagingAdapter.refresh()
             }
 
@@ -65,7 +65,7 @@ class TopMangaFragment : Fragment() {
                     it.refresh.apply {
                         when (this) {
                             is LoadState.Loading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.VISIBLE
                                     tvLoading.visibility = View.VISIBLE
                                     rvTopManga.visibility = View.GONE
@@ -75,7 +75,7 @@ class TopMangaFragment : Fragment() {
                             }
 
                             is LoadState.NotLoading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvTopManga.visibility = View.VISIBLE
@@ -85,7 +85,7 @@ class TopMangaFragment : Fragment() {
                             }
 
                             is LoadState.Error -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvTopManga.visibility = View.GONE
@@ -107,7 +107,8 @@ class TopMangaFragment : Fragment() {
                 mangaPagingAdapter.submitData(lifecycle, it)
             }
 
-            mangaPagingAdapter.setOnItemClickCallback(object : MangaPagingAdapter.OnItemClickCallback {
+            mangaPagingAdapter.setOnItemClickCallback(object :
+                MangaPagingAdapter.OnItemClickCallback {
                 override fun onItemClicked(manga: Manga) {
                     val intent = Intent(activity, DetailMangaActivity::class.java)
                     intent.putExtra(DetailMangaActivity.EXTRA_DATA, manga)
@@ -129,7 +130,12 @@ class TopMangaFragment : Fragment() {
                 true
             }
             R.id.action_favorite -> {
-                startActivity(Intent(requireContext(), Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")))
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")
+                    )
+                )
                 true
             }
             else -> false

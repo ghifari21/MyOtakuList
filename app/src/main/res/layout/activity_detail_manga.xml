@@ -373,8 +373,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_favorite"
         android:contentDescription="@string/menu_favorite"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="@dimen/fab_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

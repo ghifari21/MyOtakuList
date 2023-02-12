@@ -5,7 +5,6 @@ import com.gosty.myotakulist.core.data.source.local.entity.anime.AnimeEntity
 import com.gosty.myotakulist.core.data.source.local.entity.manga.MangaEntity
 import com.gosty.myotakulist.core.data.source.local.room.AnimeDao
 import com.gosty.myotakulist.core.data.source.local.room.MangaDao
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 

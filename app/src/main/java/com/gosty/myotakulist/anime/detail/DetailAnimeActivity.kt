@@ -2,6 +2,7 @@ package com.gosty.myotakulist.anime.detail
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -121,8 +122,18 @@ class DetailAnimeActivity : AppCompatActivity() {
                 setIconFavorite(isFavorite)
                 if (isFavorite) {
                     detailAnimeViewModel.insertAnimeFavorite(anime)
+                    Toast.makeText(
+                        this@DetailAnimeActivity,
+                        getString(R.string.add_anime_favorite),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     detailAnimeViewModel.deleteAnimeFavorite(anime.malId)
+                    Toast.makeText(
+                        this@DetailAnimeActivity,
+                        getString(R.string.delete_anime_favorite),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

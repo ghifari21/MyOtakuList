@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SeasonAnimeFragment : Fragment() {
     private val seasonAnimeViewModel: SeasonAnimeViewModel by viewModels()
     private var _binding: FragmentSeasonAnimeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private val animePagingAdapter = AnimePagingAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class SeasonAnimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSeasonAnimeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class SeasonAnimeFragment : Fragment() {
 
         if (activity != null) {
             val layoutManager = LinearLayoutManager(requireContext())
-            binding.rvNowPlayingAnime.apply {
+            binding?.rvNowPlayingAnime?.apply {
                 this.layoutManager = layoutManager
                 setHasFixedSize(true)
                 adapter = animePagingAdapter.withLoadStateFooter(
@@ -54,7 +54,7 @@ class SeasonAnimeFragment : Fragment() {
                 )
             }
 
-            binding.btnRetry.setOnClickListener {
+            binding?.btnRetry?.setOnClickListener {
                 animePagingAdapter.refresh()
             }
 
@@ -65,7 +65,7 @@ class SeasonAnimeFragment : Fragment() {
                     it.refresh.apply {
                         when (this) {
                             is LoadState.Loading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.VISIBLE
                                     tvLoading.visibility = View.VISIBLE
                                     rvNowPlayingAnime.visibility = View.GONE
@@ -75,7 +75,7 @@ class SeasonAnimeFragment : Fragment() {
                             }
 
                             is LoadState.NotLoading -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvNowPlayingAnime.visibility = View.VISIBLE
@@ -85,7 +85,7 @@ class SeasonAnimeFragment : Fragment() {
                             }
 
                             is LoadState.Error -> {
-                                binding.apply {
+                                binding?.apply {
                                     pbProgressBar.visibility = View.GONE
                                     tvLoading.visibility = View.GONE
                                     rvNowPlayingAnime.visibility = View.GONE
@@ -107,7 +107,8 @@ class SeasonAnimeFragment : Fragment() {
                 animePagingAdapter.submitData(lifecycle, it)
             }
 
-            animePagingAdapter.setOnItemClickCallback(object : AnimePagingAdapter.OnItemClickCallback {
+            animePagingAdapter.setOnItemClickCallback(object :
+                AnimePagingAdapter.OnItemClickCallback {
                 override fun onItemClicked(anime: Anime) {
                     val intent = Intent(activity, DetailAnimeActivity::class.java)
                     intent.putExtra(DetailAnimeActivity.EXTRA_DATA, anime)
@@ -129,7 +130,12 @@ class SeasonAnimeFragment : Fragment() {
                 true
             }
             R.id.action_favorite -> {
-                startActivity(Intent(requireContext(), Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")))
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        Class.forName("com.gosty.myotakulist.favorite.FavoriteActivity")
+                    )
+                )
                 true
             }
             else -> false
