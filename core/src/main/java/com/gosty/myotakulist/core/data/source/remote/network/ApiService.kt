@@ -2,10 +2,8 @@ package com.gosty.myotakulist.core.data.source.remote.network
 
 import com.gosty.myotakulist.core.data.source.remote.response.anime.AnimeResponse
 import com.gosty.myotakulist.core.data.source.remote.response.common.CommonPaginationResponse
-import com.gosty.myotakulist.core.data.source.remote.response.common.CommonResponse
 import com.gosty.myotakulist.core.data.source.remote.response.manga.MangaResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {

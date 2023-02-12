@@ -32,7 +32,22 @@ class TabsFragment : Fragment() {
     }
 
     private var _binding: FragmentTabsBinding? = null
-    private val binding  get() = _binding!!
+    private val binding get() = _binding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFavoriteComponent
+            .builder()
+            .context(requireActivity().applicationContext)
+            .appDependencies(
+                EntryPointAccessors.fromApplication(
+                    requireActivity().applicationContext,
+                    FavoriteModuleDependencies::class.java
+                )
+            )
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,40 +55,28 @@ class TabsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTabsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            DaggerFavoriteComponent
-                .builder()
-                .context(requireContext())
-                .appDependencies(
-                    EntryPointAccessors.fromApplication(
-                        requireActivity().applicationContext,
-                        FavoriteModuleDependencies::class.java
-                    )
-                )
-                .build()
-                .inject(this)
-
             val tabName = arguments?.getString(ARG_TAB)
             val layoutManager = LinearLayoutManager(requireContext())
-            binding.rvFavorite.layoutManager = layoutManager
-            binding.rvFavorite.setHasFixedSize(true)
+            binding?.rvFavorite?.layoutManager = layoutManager
+            binding?.rvFavorite?.setHasFixedSize(true)
 
             if (tabName == TAB_ANIME) {
                 val animePagingAdapter = AnimePagingAdapter()
 
-                binding.rvFavorite.adapter = animePagingAdapter.withLoadStateFooter(
+                binding?.rvFavorite?.adapter = animePagingAdapter.withLoadStateFooter(
                     footer = LoadingStateAdapter {
                         animePagingAdapter.retry()
                     }
                 )
 
-                binding.btnRetry.setOnClickListener {
+                binding?.btnRetry?.setOnClickListener {
                     animePagingAdapter.refresh()
                 }
 
@@ -84,7 +87,7 @@ class TabsFragment : Fragment() {
                         it.refresh.apply {
                             when (this) {
                                 is LoadState.Loading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.VISIBLE
                                         tvLoading.visibility = View.VISIBLE
                                         rvFavorite.visibility = View.GONE
@@ -94,17 +97,25 @@ class TabsFragment : Fragment() {
                                 }
 
                                 is LoadState.NotLoading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.VISIBLE
                                         tvError.visibility = View.GONE
                                         btnRetry.visibility = View.GONE
                                     }
+
+                                    if (animePagingAdapter.itemCount == 0) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            getString(com.gosty.myotakulist.R.string.empty_favorite_anime),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
 
                                 is LoadState.Error -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.GONE
@@ -126,7 +137,8 @@ class TabsFragment : Fragment() {
                     animePagingAdapter.submitData(lifecycle, it)
                 }
 
-                animePagingAdapter.setOnItemClickCallback(object : AnimePagingAdapter.OnItemClickCallback {
+                animePagingAdapter.setOnItemClickCallback(object :
+                    AnimePagingAdapter.OnItemClickCallback {
                     override fun onItemClicked(anime: Anime) {
                         val intent = Intent(activity, DetailAnimeActivity::class.java)
                         intent.putExtra(DetailAnimeActivity.EXTRA_DATA, anime)
@@ -135,13 +147,13 @@ class TabsFragment : Fragment() {
                 })
             } else {
                 val mangaPagingAdapter = MangaPagingAdapter()
-                binding.rvFavorite.adapter = mangaPagingAdapter.withLoadStateFooter(
+                binding?.rvFavorite?.adapter = mangaPagingAdapter.withLoadStateFooter(
                     footer = LoadingStateAdapter {
                         mangaPagingAdapter.retry()
                     }
                 )
 
-                binding.btnRetry.setOnClickListener {
+                binding?.btnRetry?.setOnClickListener {
                     mangaPagingAdapter.refresh()
                 }
 
@@ -152,7 +164,7 @@ class TabsFragment : Fragment() {
                         it.refresh.apply {
                             when (this) {
                                 is LoadState.Loading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.VISIBLE
                                         tvLoading.visibility = View.VISIBLE
                                         rvFavorite.visibility = View.GONE
@@ -162,17 +174,24 @@ class TabsFragment : Fragment() {
                                 }
 
                                 is LoadState.NotLoading -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.VISIBLE
                                         tvError.visibility = View.GONE
                                         btnRetry.visibility = View.GONE
                                     }
+                                    if (mangaPagingAdapter.itemCount == 0) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            getString(com.gosty.myotakulist.R.string.empty_favorite_manga),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
 
                                 is LoadState.Error -> {
-                                    binding.apply {
+                                    binding?.apply {
                                         pbProgressBar.visibility = View.GONE
                                         tvLoading.visibility = View.GONE
                                         rvFavorite.visibility = View.GONE
@@ -194,7 +213,8 @@ class TabsFragment : Fragment() {
                     mangaPagingAdapter.submitData(lifecycle, it)
                 }
 
-                mangaPagingAdapter.setOnItemClickCallback(object : MangaPagingAdapter.OnItemClickCallback {
+                mangaPagingAdapter.setOnItemClickCallback(object :
+                    MangaPagingAdapter.OnItemClickCallback {
                     override fun onItemClicked(manga: Manga) {
                         val intent = Intent(activity, DetailMangaActivity::class.java)
                         intent.putExtra(DetailMangaActivity.EXTRA_DATA, manga)
